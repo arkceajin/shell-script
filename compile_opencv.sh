@@ -6,6 +6,7 @@ sudo ln -s /opt/cmake-3.5.1-Linux-x86_64/bin/* /usr/local/bin
 cd ~ && wget https://github.com/opencv/opencv/archive/4.0.1.zip
 sudo apt-get install unzip
 unzip 4.0.1.zip
+sed -i 's/#define CV__EXCEPTION_PTR/#undef CV__EXCEPTION_PTR\n#define CV__EXCEPTION_PTR/' opencv-4.0.1/modules/core/src/parallel.cpp
 cd opencv-4.0.1
 mkdir build
 cd build
