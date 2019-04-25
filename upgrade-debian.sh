@@ -1,7 +1,7 @@
 sudo cp /etc/apt/sources.list /etc/apt/sources.list.wheezy
 #sudo sed -i 's/wheezy/jessie/g' /etc/apt/sources.list
 wget https://raw.githubusercontent.com/arkceajin/shell-script/master/sources.list
-sudo cp sources.list /etc/apt/sources.list
+sudo cp -f sources.list /etc/apt/sources.list
 
 sudo touch /etc/apt/sources.list.d/crosstools.list
 sudo touch /etc/apt/sources.list.d/atmark-techno.list
@@ -16,7 +16,7 @@ sudo apt-get update
 sudo apt-get upgrade
 sudo apt-get dist-upgrade
 sudo apt-get install virtualbox-guest-dkms virtualbox-guest-x11 linux-headers-$(uname -r)
-sudo apt-get install gnome-terminal
-sudo apt-get install nautilus
-sudo apt-get install gdm3
+#sudo apt-get install gnome-terminal
+#sudo apt-get install nautilus
+#sudo apt-get install gdm3
 sudo reboot
