@@ -16,7 +16,7 @@ sudo apt-get update
 sudo apt-get upgrade
 sudo apt-get dist-upgrade
 sudo apt-get install virtualbox-guest-dkms virtualbox-guest-x11 linux-headers-$(uname -r)
-#sudo apt-get install gnome-terminal
-#sudo apt-get install nautilus
-#sudo apt-get install gdm3
+sudo apt-get install gnome-terminal
+sudo apt-get install nautilus
+sudo apt-get install gdm3
 sudo reboot
