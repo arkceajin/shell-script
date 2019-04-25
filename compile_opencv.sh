@@ -10,7 +10,7 @@ if [ ! -d "/opt/opencv-4.0.1" ]; then
   cd /opt && wget https://github.com/opencv/opencv/archive/4.0.1.zip
   sudo apt-get install unzip
   unzip 4.0.1.zip
-  sed -i 's/#define CV__EXCEPTION_PTR/#undef CV__EXCEPTION_PTR\n#define CV__EXCEPTION_PTR/' opencv-4.0.1/modules/core/src/parallel.cpp
+  sudo sed -i 's/#ifndef CV__EXCEPTION_PTR/#undef CV__EXCEPTION_PTR\n#ifndef CV__EXCEPTION_PTR/' /opt/opencv-4.0.1/modules/core/src/parallel.cpp
   mkdir -p /opt/opencv-4.0.1/build
 fi
 
