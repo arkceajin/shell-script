@@ -11,7 +11,7 @@ if [ ! -d "/opt/opencv-4.0.1" ]; then
   sudo apt-get install unzip
   unzip 4.0.1.zip
   sed -i 's/#define CV__EXCEPTION_PTR/#undef CV__EXCEPTION_PTR\n#define CV__EXCEPTION_PTR/' opencv-4.0.1/modules/core/src/parallel.cpp
-  sudo mkdir -p /opt/opencv-4.0.1/build
+  mkdir -p /opt/opencv-4.0.1/build
 fi
 
 cd /opt/opencv-4.0.1/build
