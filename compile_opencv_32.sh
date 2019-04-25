@@ -5,7 +5,7 @@ if ! [ -x "$(command -v cmake)" ]; then
   sudo ln -s /opt/cmake-3.5.1-Linux-i386/bin/* /usr/local/bin
 fi
 
-if [ -d "/opt/opencv-4.0.1" ]; then
+if [ ! -d "/opt/opencv-4.0.1" ]; then
   cd /opt && wget https://github.com/opencv/opencv/archive/4.0.1.zip
   sudo apt-get install unzip
   unzip 4.0.1.zip
