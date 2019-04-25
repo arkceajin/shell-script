@@ -1,5 +1,4 @@
 if ! [ -x "$(command -v cmake)" ]; then
-  echo 'Error: git is not installed.' >&2
   cd /opt && sudo wget https://github.com/Kitware/CMake/releases/download/v3.5.1/cmake-3.5.1-Linux-i386.sh
   sudo chmod a+x cmake-3.5.1-Linux-i386.sh
   sudo bash cmake-3.5.1-Linux-i386.sh --skip-license --prefix=/opt/cmake-3.5.1-Linux-i386
