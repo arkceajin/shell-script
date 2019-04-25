@@ -7,9 +7,7 @@ cd ~ && wget https://github.com/opencv/opencv/archive/4.0.1.zip
 sudo apt-get install unzip
 unzip 4.0.1.zip
 #sed -i 's/#define CV__EXCEPTION_PTR/#undef CV__EXCEPTION_PTR\n#define CV__EXCEPTION_PTR/' opencv-4.0.1/modules/core/src/parallel.cpp
-cd opencv-4.0.1
-mkdir build
-cd build
+cd opencv-4.0.1 && mkdir build && cd build
 
-cmake -DCMAKE_C_COMPILER=arm-linux-gnueabi-gcc-4.9 -DCMAKE_CXX_COMPILER=arm-linux-gnueabi-g++-4.9 -DWITH_PROTOBUF=OFF -DWITH_ADE=OFF -DWITH_CUDA=OFF -DBUILD_TIFF=ON -DCMAKE_INSTALL_PREFIX=/usr/arm-linux-gnueabi/opencv4 -DBUILD_SHARED_LIBS=OFF ../
+cmake -DCMAKE_TOOLCHAIN_FILE=../platforms/linux/arm-gnueabi.toolchain.cmake -DCMAKE_INSTALL_PREFIX=~/opencv4-static -DBUILD_SHARED_LIBS=OFF -DBUILD_WITH_STATIC_CRT=ON -DCMAKE_BUILD_TYPE=RELEASE -DOPENCV_GENERATE_PKGCONFIG=ON ../
 make -j 4
