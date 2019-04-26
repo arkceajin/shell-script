@@ -45,5 +45,12 @@ fi
 make -j$(nproc) && make install
 
 # add pkg-config to path
-echo "export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:${OPENCV_PREFIX}/lib/pkgconfig" >> /etc/bash.bashrc
-source /etc/bash.bashrc
+PKG_PATH="export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:${OPENCV_PREFIX}/lib/pkgconfig"
+BASHRC="/etc/bash.bashrc"
+if grep -q "${PKG_PATH}" "${BASHRC}"; then
+    echo "${PKG_PATH} already added."
+else
+    echo ${PKG_PATH} >> ${BASHRC}
+    source ${BASHRC}
+    echo "${PKG_PATH} add into rcS."
+fi
