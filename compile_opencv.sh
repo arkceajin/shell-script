@@ -43,3 +43,7 @@ else
   cmake -DCMAKE_TOOLCHAIN_FILE=../platforms/linux/arm-gnueabi.toolchain.cmake -DCMAKE_INSTALL_PREFIX=${OPENCV_PREFIX} -DBUILD_SHARED_LIBS=OFF -DBUILD_WITH_STATIC_CRT=ON -DCMAKE_BUILD_TYPE=RELEASE -DOPENCV_GENERATE_PKGCONFIG=ON -DWITH_OPENEXR=OFF ../
 fi
 make -j$(nproc) && make install
+
+# add pkg-config to path
+echo "export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:${OPENCV_PREFIX}/lib/pkgconfig" >> /etc/bash.bashrc
+source /etc/bash.bashrc
