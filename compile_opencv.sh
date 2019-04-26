@@ -19,7 +19,7 @@ if ! [ -x "$(command -v cmake)" ]; then
   sudo chmod a+x "${CMAKE_PKG}.sh"
   sudo mkdir -p "${WORK_DIR}/${CMAKE_PKG}"
   sudo bash "${WORK_DIR}/${CMAKE_PKG}.sh" --skip-license --prefix="${WORK_DIR}/${CMAKE_PKG}"
-  sudo ln -s "${WORK_DIR}/${CMAKE_PKG}/bin/*" /usr/local/bin
+  sudo ln -s ${WORK_DIR}/${CMAKE_PKG}/bin/* /usr/local/bin
 fi
 
 # install opencv
