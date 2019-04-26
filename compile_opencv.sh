@@ -51,6 +51,8 @@ if grep -q "${PKG_PATH}" "${BASHRC}"; then
     echo "${PKG_PATH} already added."
 else
     echo ${PKG_PATH} >> ${BASHRC}
-    source ${BASHRC}
+    # source ${BASHRC}
     echo "${PKG_PATH} add into rcS."
 fi
+
+# Run source /etc/bash.bashrc after this script!
