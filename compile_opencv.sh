@@ -2,8 +2,13 @@ WORK_DIR="/opt"
 OPENCV_PREFIX="/usr/opencv4-static"
 OPENCV_VERSION="4.0.1"
 OPENCV_SRC="${WORK_DIR}/opencv-${OPENCV_VERSION}"
-BUILD_SHARED_LIBS="OFF"
+BUILD_SHARED_LIBS=""
 MACHINE_TYPE=""
+if [ $1 == 'static' ]; then
+  BUILD_SHARED_LIBS="OFF"
+else
+  BUILD_SHARED_LIBS="ON"
+fi
 if [ $(uname -m) == 'x86_64' ]; then
   # 64-bit
   MACHINE_TYPE="x86_64"
