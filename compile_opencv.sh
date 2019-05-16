@@ -1,13 +1,15 @@
 WORK_DIR="/opt"
-OPENCV_PREFIX="/usr/opencv4-static"
 OPENCV_VERSION="4.0.1"
+OPENCV_PREFIX="/usr/opencv-${OPENCV_VERSION}"
 OPENCV_SRC="${WORK_DIR}/opencv-${OPENCV_VERSION}"
 BUILD_SHARED_LIBS=""
 MACHINE_TYPE=""
 if [ "$1" == 'static' ]; then
   BUILD_SHARED_LIBS="OFF"
+  OPENCV_PREFIX=${OPENCV_PREFIX}-static
 else
   BUILD_SHARED_LIBS="ON"
+  OPENCV_PREFIX=${OPENCV_PREFIX}-dynamic
 fi
 if [ $(uname -m) == 'x86_64' ]; then
   # 64-bit
@@ -32,11 +34,11 @@ fi
 if [ ! -d ${OPENCV_SRC} ]; then
   cd ${WORK_DIR} && wget "https://github.com/opencv/opencv/archive/${OPENCV_VERSION}.zip"
   sudo apt-get install unzip
-  unzip "${OPENCV_VERSION}.zip"
+  sudo unzip "${OPENCV_VERSION}.zip"
   if [ $(uname -m) == 'x86_64' ]; then
     sudo sed -i 's/#ifndef CV__EXCEPTION_PTR/#undef CV__EXCEPTION_PTR\n#ifndef CV__EXCEPTION_PTR/' "${OPENCV_SRC}/modules/core/src/parallel.cpp"
   fi
-  mkdir -p "${OPENCV_SRC}/build"
+  sudo mkdir -p "${OPENCV_SRC}/build"
 fi
 
 # start build opencv
@@ -48,7 +50,8 @@ else
   # 32-bit 
   cmake -DCMAKE_TOOLCHAIN_FILE=../platforms/linux/arm-gnueabi.toolchain.cmake -DCMAKE_INSTALL_PREFIX=${OPENCV_PREFIX} -DBUILD_SHARED_LIBS=${BUILD_SHARED_LIBS} -DBUILD_WITH_STATIC_CRT=ON -DCMAKE_BUILD_TYPE=RELEASE -DOPENCV_GENERATE_PKGCONFIG=ON -DWITH_OPENEXR=OFF ../
 fi
-make -j$(nproc) && make install
+make -j$(nproc) 
+sudo make install
 
 # add pkg-config to path
 PKG_PATH="export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:${OPENCV_PREFIX}/lib/pkgconfig"
@@ -56,7 +59,7 @@ BASHRC="/etc/bash.bashrc"
 if grep -q "${PKG_PATH}" "${BASHRC}"; then
     echo "${PKG_PATH} already added."
 else
-    echo ${PKG_PATH} >> ${BASHRC}
+    sudo echo ${PKG_PATH} >> ${BASHRC}
     # source ${BASHRC}
     echo "${PKG_PATH} add into rcS."
 fi
