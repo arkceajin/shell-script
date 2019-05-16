@@ -32,7 +32,7 @@ fi
 
 # install opencv
 if [ ! -d ${OPENCV_SRC} ]; then
-  cd ${WORK_DIR} && wget "https://github.com/opencv/opencv/archive/${OPENCV_VERSION}.zip"
+  cd ${WORK_DIR} && sudo wget "https://github.com/opencv/opencv/archive/${OPENCV_VERSION}.zip"
   sudo apt-get install unzip
   sudo unzip "${OPENCV_VERSION}.zip"
   if [ $(uname -m) == 'x86_64' ]; then
