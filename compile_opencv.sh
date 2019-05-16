@@ -4,7 +4,7 @@ OPENCV_VERSION="4.0.1"
 OPENCV_SRC="${WORK_DIR}/opencv-${OPENCV_VERSION}"
 BUILD_SHARED_LIBS=""
 MACHINE_TYPE=""
-if [ $1 == 'static' ]; then
+if [ "$1" == 'static' ]; then
   BUILD_SHARED_LIBS="OFF"
 else
   BUILD_SHARED_LIBS="ON"
