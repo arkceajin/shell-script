@@ -65,3 +65,4 @@ else
 fi
 
 # Run source /etc/bash.bashrc after this script!
+echo "Run source /etc/bash.bashrc"
