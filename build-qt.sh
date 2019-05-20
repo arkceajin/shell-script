@@ -10,7 +10,7 @@ cp -r qtbase/mkspecs/linux-arm-gnueabi-g++ qtbase/mkspecs/linux-arm-gnueabihf-g+
 sed -i "s/gnueabi-/gnueabihf-/" qtbase/mkspecs/linux-arm-gnueabihf-g++/qmake.conf
 
 ./configure -v -xplatform linux-arm-gnueabihf-g++ -release -opensource -confirm-license -make libs \
--prefix ${QT_PREFIX} -arm -skip webkit -nomake examples -nomake tests \
+-prefix ${QT_PREFIX} -skip webkit -nomake examples -nomake tests \
 -no-qml-debug -opengl es2 -no-xcb
 
 make -j$(nproc)
