@@ -11,7 +11,7 @@ sed -i "s/gnueabi-/gnueabihf-/" qtbase/mkspecs/linux-arm-gnueabihf-g++/qmake.con
 
 ./configure -v -xplatform linux-arm-gnueabihf-g++ -release -opensource -confirm-license -make libs \
 -prefix ${QT_PREFIX} -skip webkit -nomake examples -nomake tests \
--no-qml-debug -opengl es2 -no-xcb
+-no-qml-debug -opengl es2 -no-xcb -icu
 
 make -j$(nproc)
 sudo make install
