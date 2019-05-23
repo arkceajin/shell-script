@@ -1,4 +1,4 @@
-QT_VER="5.3.2"
+QT_VER="5.3.2-arm"
 QT_PREFIX=/opt/Qt/Qt${QT_VER}
 
 cd /opt
