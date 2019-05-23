@@ -1,5 +1,5 @@
-QT_VER="5.3.2-arm"
-QT_PREFIX=/opt/Qt/Qt${QT_VER}
+QT_VER="5.3.2"
+QT_PREFIX=/opt/Qt/Qt${QT_VER}-arm
 
 cd /opt
 sudo wget https://download.qt.io/archive/qt/${QT_VER:0:3}/${QT_VER}/single/qt-everywhere-opensource-src-${QT_VER}.tar.xz
