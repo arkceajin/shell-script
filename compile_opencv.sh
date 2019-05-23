@@ -23,7 +23,7 @@ CMAKE_PKG="cmake-${CMAKE_VERSION}-Linux-${MACHINE_TYPE}"
 
 # install cmake
 if ! [ -x "$(command -v cmake)" ]; then
-  cd ${WORK_DIR} && sudo wget "https://github.com/Kitware/CMake/releases/download/v${CMAKE_VERSION}/${CMAKE_PKG}.sh"
+  cd ${WORK_DIR} && sudo wget --no-check-certificate "https://github.com/Kitware/CMake/releases/download/v${CMAKE_VERSION}/${CMAKE_PKG}.sh"
   sudo chmod a+x "${CMAKE_PKG}.sh"
   sudo mkdir -p "${WORK_DIR}/${CMAKE_PKG}"
   sudo bash "${WORK_DIR}/${CMAKE_PKG}.sh" --skip-license --prefix="${WORK_DIR}/${CMAKE_PKG}"
@@ -32,7 +32,7 @@ fi
 
 # install opencv
 if [ ! -d ${OPENCV_SRC} ]; then
-  cd ${WORK_DIR} && sudo wget "https://github.com/opencv/opencv/archive/${OPENCV_VERSION}.zip"
+  cd ${WORK_DIR} && sudo wget --no-check-certificate "https://github.com/opencv/opencv/archive/${OPENCV_VERSION}.zip"
   sudo apt-get install unzip
   sudo unzip "${OPENCV_VERSION}.zip"
   if [ $(uname -m) == 'x86_64' ]; then
