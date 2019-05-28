@@ -34,24 +34,28 @@ fi
 if [ ! -d ${OPENCV_SRC} ]; then
   cd ${WORK_DIR} && sudo wget --no-check-certificate "https://github.com/opencv/opencv/archive/${OPENCV_VERSION}.zip"
   sudo apt-get install unzip
+  sudo apt-get install pkg-config -y
   sudo unzip "${OPENCV_VERSION}.zip"
+fi
+
+sudo chown -R $USER:$USER ${OPENCV_SRC}
+rm -rf ${OPENCV_SRC}/build
+mkdir -p ${OPENCV_SRC}/build
+  
+# start build opencv
+cd ${OPENCV_SRC}/build
+if [ -f "$(which arm-linux-gnueabihf-gcc-4.9)" ]; then
+  echo "arm-linux-gnueabihf"
+  cmake -DCMAKE_TOOLCHAIN_FILE=../platforms/linux/arm-gnueabi.toolchain.cmake -DCMAKE_INSTALL_PREFIX=${OPENCV_PREFIX} -DBUILD_SHARED_LIBS=${BUILD_SHARED_LIBS} -DBUILD_WITH_STATIC_CRT=ON -DCMAKE_BUILD_TYPE=RELEASE -DOPENCV_GENERATE_PKGCONFIG=ON -DWITH_OPENEXR=OFF ../
+else
+  echo "arm-linux-gnueabi"
   if [ $(uname -m) == 'x86_64' ]; then
     sudo sed -i 's/#ifndef CV__EXCEPTION_PTR/#undef CV__EXCEPTION_PTR\n#ifndef CV__EXCEPTION_PTR/' "${OPENCV_SRC}/modules/core/src/parallel.cpp"
   fi
-  sudo mkdir -p "${OPENCV_SRC}/build"
+  cmake -DCMAKE_C_COMPILER=arm-linux-gnueabi-gcc-4.9 -DCMAKE_CXX_COMPILER=arm-linux-gnueabi-g++-4.9 -DBUILD_TIFF=ON -DCMAKE_INSTALL_PREFIX=${OPENCV_PREFIX} -DBUILD_SHARED_LIBS=${BUILD_SHARED_LIBS} -DINSTALL_PYTHON_EXAMPLES=OFF -DBUILD_NEW_PYTHON_SUPPORT=OFF -DWITH_PROTOBUF=OFF -DWITH_ADE=OFF -DWITH_CUDA=OFF -DWITH_IPP=OFF -DWITH_QT=OFF -DWITH_GTK=OFF -DWITH_OPENEXR=OFF -DOPENCV_GENERATE_PKGCONFIG=ON ../
 fi
 
-# start build opencv
-cd "${OPENCV_SRC}/build"
-if [ -f "$(which arm-linux-gnueabihf-gcc-4.9)" ]; then
-  echo "arm-linux-gnueabihf"
-  sudo cmake -DCMAKE_TOOLCHAIN_FILE=../platforms/linux/arm-gnueabi.toolchain.cmake -DCMAKE_INSTALL_PREFIX=${OPENCV_PREFIX} -DBUILD_SHARED_LIBS=${BUILD_SHARED_LIBS} -DBUILD_WITH_STATIC_CRT=ON -DCMAKE_BUILD_TYPE=RELEASE -DOPENCV_GENERATE_PKGCONFIG=ON -DWITH_OPENEXR=OFF ../
-else
-  echo "arm-linux-gnueabi"
-  sudo cmake -DCMAKE_C_COMPILER=arm-linux-gnueabi-gcc-4.9 -DCMAKE_CXX_COMPILER=arm-linux-gnueabi-g++-4.9 -DBUILD_TIFF=ON -DCMAKE_INSTALL_PREFIX=${OPENCV_PREFIX} -DBUILD_SHARED_LIBS=${BUILD_SHARED_LIBS} -DINSTALL_PYTHON_EXAMPLES=OFF -DBUILD_NEW_PYTHON_SUPPORT=OFF -DWITH_PROTOBUF=OFF -DWITH_ADE=OFF -DWITH_CUDA=OFF -DWITH_IPP=OFF -DWITH_QT=OFF -DWITH_GTK=OFF -DWITH_OPENEXR=OFF -DOPENCV_GENERATE_PKGCONFIG=ON ../
-fi
-sudo apt-get install pkg-config -y
-sudo make -j$(nproc) 
+make -j$(nproc) 
 sudo make install
 
 # add pkg-config to path
@@ -60,7 +64,7 @@ BASHRC="/etc/bash.bashrc"
 if grep -q "${PKG_PATH}" "${BASHRC}"; then
     echo "${PKG_PATH} already added."
 else
-    sudo echo ${PKG_PATH} >> ${BASHRC}
+    echo ${PKG_PATH} | sudo tee -a ${BASHRC}
     # source ${BASHRC}
     echo "${PKG_PATH} add into rcS."
 fi
