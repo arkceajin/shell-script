@@ -43,7 +43,7 @@ fi
 
 # start build opencv
 cd "${OPENCV_SRC}/build"
-if [ -e $(which arm-linux-gnueabihf-gcc-4.9)]; then
+if [ -e "$(which arm-linux-gnueabihf-gcc-4.9)"]; then
   echo "arm-linux-gnueabihf"
   sudo cmake -DCMAKE_TOOLCHAIN_FILE=../platforms/linux/arm-gnueabi.toolchain.cmake -DCMAKE_INSTALL_PREFIX=${OPENCV_PREFIX} -DBUILD_SHARED_LIBS=${BUILD_SHARED_LIBS} -DBUILD_WITH_STATIC_CRT=ON -DCMAKE_BUILD_TYPE=RELEASE -DOPENCV_GENERATE_PKGCONFIG=ON -DWITH_OPENEXR=OFF ../
 else
