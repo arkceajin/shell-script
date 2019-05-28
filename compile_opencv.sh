@@ -44,8 +44,10 @@ fi
 # start build opencv
 cd "${OPENCV_SRC}/build"
 if [ -e $(which arm-linux-gnueabihf-gcc-4.9)]; then
+  echo "arm-linux-gnueabihf"
   sudo cmake -DCMAKE_TOOLCHAIN_FILE=../platforms/linux/arm-gnueabi.toolchain.cmake -DCMAKE_INSTALL_PREFIX=${OPENCV_PREFIX} -DBUILD_SHARED_LIBS=${BUILD_SHARED_LIBS} -DBUILD_WITH_STATIC_CRT=ON -DCMAKE_BUILD_TYPE=RELEASE -DOPENCV_GENERATE_PKGCONFIG=ON -DWITH_OPENEXR=OFF ../
 else
+  echo "arm-linux-gnueabi"
   sudo cmake -DCMAKE_C_COMPILER=arm-linux-gnueabi-gcc-4.9 -DCMAKE_CXX_COMPILER=arm-linux-gnueabi-g++-4.9 -DBUILD_TIFF=ON -DCMAKE_INSTALL_PREFIX=${OPENCV_PREFIX} -DBUILD_SHARED_LIBS=${BUILD_SHARED_LIBS} -DINSTALL_PYTHON_EXAMPLES=OFF -DBUILD_NEW_PYTHON_SUPPORT=OFF -DWITH_PROTOBUF=OFF -DWITH_ADE=OFF -DWITH_CUDA=OFF -DWITH_IPP=OFF -DWITH_QT=OFF -DWITH_GTK=OFF -DWITH_OPENEXR=OFF -DOPENCV_GENERATE_PKGCONFIG=ON ../
 fi
 sudo apt-get install pkg-config -y
